@@ -4,15 +4,12 @@
  * gitlab-slack configuration.
  * @typedef {Object} Configuration
  * @property {Number} port The port on which to listen.
- * @property {String} slackWebhookUrl The URL of the Slack incoming webhook.
  * @property {GitLabConfiguration} gitLab GitLab configuration.
  */
 
 /**
  * gitlab-slack GitLab configuration.
- * @typedef {Object} GitLabConfiguration
- * @property {String} baseUrl The protocol/host/port of the GitLab installation.
- * @property {String} apiToken The API token with which to query GitLab.
+ * @typedef {Object} GitLabConfigurationb.
  * @property {ProjectConfiguration[]} projects The project configuration.
  */
 
@@ -31,10 +28,14 @@
  */
 module.exports = {
 	port: 4646,
-	slackWebhookUrl: '',
 	gitLab: {
-		baseUrl: '',
-		apiToken: '',
-		projects: []
+		projects: [
+			{
+				id: 260,
+				name: 'chrome-extension-home_equity',
+				channel: '',
+				labels: []
+			}
+		]
 	}
 };

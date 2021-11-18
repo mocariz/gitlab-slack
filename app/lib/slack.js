@@ -28,7 +28,7 @@ exports.send = async function (body) {
 	try {
 		const response = await rp({
 			method: 'POST',
-			url: config.slackWebhookUrl,
+			url: process.env.SLACKWEBHOOKURL,
 			json: true,
 			body,
 			resolveWithFullResponse: true

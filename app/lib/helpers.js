@@ -15,57 +15,6 @@ const REGEX_MARKDOWN_LINK = /(!)?\[([^\]]*)]\(([^)]+)\)/g,
 const debug = debugCreate('gitlab-slack:app'); // Log as 'app' from here.
 
 /**
- * Filters `items` to those matching any of `patterns`.
- * @param {Array} items The items.
- * @param {RegExp[]} patterns The patterns.
- * @param {function(*): String} [getter] The property getter. (default = identity)
- * @returns {Array} The matching items.
- */
-exports.matchingAnyPattern = function (items, patterns, getter = _.identity) {
-	return _.filter(items, function (item) {
-		return _.some(patterns, function (pattern) {
-			return pattern.test(getter(item));
-		});
-	});
-};
-
-/**
- * Converts a GitLab object action to a friendly verb.
- * @param {String} action The action.
- * @returns {String} A friendly verb.
- */
-exports.actionToVerb = function (action) {
-	let verb;
-
-	switch (action) {
-		case 'open':
-		case 'create':
-			verb = 'created';
-			break;
-		case 'reopen':
-			verb = 're-opened';
-			break;
-		case 'update':
-			verb = 'modified';
-			break;
-		case 'close':
-			verb = 'closed';
-			break;
-		case 'merge':
-			verb = 'merged';
-			break;
-		case 'delete':
-			verb = 'deleted';
-			break;
-		default:
-			verb = '(' + action + ')';
-			break;
-	}
-
-	return verb;
-};
-
-/**
  * Attempts to get the project ID from message data.
  * @param {Object} data The message data.
  * @param {GitLabApi} api The GitLab API.
@@ -80,7 +29,6 @@ exports.getProjectId = async function (data, api) {
 
 	// If the project ID isn't on the data root, we'll try to look up the project information
 	//  by its path-with-namespace value.
-
 	if (data.project && data.project.path_with_namespace) {
 		const project = await api.getProject(encodeURIComponent(data.project.path_with_namespace));
 
